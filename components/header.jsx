@@ -12,9 +12,9 @@ const Header = async () => {
 
     return (
         <header className="fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60">
-            <nav className="container mx-auto px-4 py-4 h-16 flex items-center justify-between">
+            <nav className="container mx-auto px-4 lg:py-4 py-2 h-16 flex items-center justify-between">
                 <Link href={"/"} className='flex items-center gap-2'>
-                    <h2 className='text-3xl font-bold'>Bade</h2><h2 className='text-3xl font-bold text-[#0378C5]'>Bhaiya</h2>
+                    <h2 className='lg:text-3xl text-2xl font-bold'>Bade</h2><h2 className='lg:text-3xl text-2xl font-bold text-[#0378C5]'>Bhaiya</h2>
                 </Link>
 
                 {/* Action Buttons */}
