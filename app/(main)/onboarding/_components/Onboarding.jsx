@@ -1,9 +1,9 @@
 import React from 'react'
 
-const OnboardingComponent = () => {
-  return (
-    <div>OnboardingComponent</div>
-  )
+const OnboardingForm = ({ industries }) => {
+    return (
+        <div>OnboardingComponent</div>
+    )
 }
 
-export default OnboardingComponent
+export default OnboardingForm
