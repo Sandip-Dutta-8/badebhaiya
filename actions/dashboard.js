@@ -1,8 +1,8 @@
 'use server'
 
-import { db } from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+const { db } = require("../lib/prisma");
+const { auth } = require("@clerk/nextjs/server");
+const { GoogleGenerativeAI } =  require("@google/generative-ai");
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -17,7 +17,7 @@ export const generateAIInsights = async (industry) => {
               "growthRate": number,
               "demandLevel": "HIGH" | "MEDIUM" | "LOW",
               "topSkills": ["skill1", "skill2"],
-              "marketOutlook": "POSITIVE" | "NEUTRAL" | "NEGETIVE",
+              "marketOutlook": "POSITIVE" | "NEUTRAL" | "NEGATIVE",
               "keyTrends": ["trend1", "trend2"],
               "recommendedSkills": ["skill1", "skill2"]
             }
@@ -43,14 +43,14 @@ export async function getIndustryInshights() {
     const user = await db.user.findUnique({
         where: { clerkUserId: userId },
         include: {
-            industryInsight: true,
+            industryInsights: true,
         },
     });
 
     if (!user) throw new Error("User not found");
 
     // If no insights exist, generate them
-    if (!user.industryInsight) {
+    if (!user.industryInsights) {
         const insights = await generateAIInsights(user.industry);
 
         const industryInsight = await db.industryInsights.create({
@@ -64,5 +64,5 @@ export async function getIndustryInshights() {
         return industryInsight;
     }
 
-    return user.industryInsight;
+    return user.industryInsights;
 }

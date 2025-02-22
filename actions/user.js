@@ -1,6 +1,6 @@
 'use server'
 
-import { generateAIInsights } from "./dashboard";
+const { generateAIInsights } =  require("./dashboard");
 
 const { db } = require("../lib/prisma");
 const { auth } = require("@clerk/nextjs/server");
@@ -31,19 +31,6 @@ export async function updateUser(data) {
 
                 //if industry doesn't exists create it with the default values - Replace it later with AI
                 if (!industryInsight) {
-                    // industryInsight = await tx.industryInsights.create({
-                    //     data: {
-                    //         industry: data.industry,
-                    //         salaryRanges: [],
-                    //         growthRate: 0,
-                    //         demandLevel: "MEDIUM",
-                    //         topSkills: [],
-                    //         marketOutlook: "NEUTRAL",
-                    //         keyTrends: [],
-                    //         recommendedSkills: [],
-                    //         nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-                    //     }
-                    // })
                     const insights = await generateAIInsights(data.industry);
 
                     industryInsight = await db.industryInsights.create({
