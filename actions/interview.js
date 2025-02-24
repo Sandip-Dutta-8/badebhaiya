@@ -101,7 +101,6 @@ export async function saveQuizResult(questions, answers, score) {
             const tipResult = await model.generateContent(improvementPrompt);
 
             improvementTip = tipResult.response.text().trim();
-            console.log(improvementTip);
         } catch (error) {
             console.error("Error generating improvement tip:", error);
             // Continue without improvement tip if generation fails
@@ -109,7 +108,7 @@ export async function saveQuizResult(questions, answers, score) {
     }
 
     try {
-        const assessment = await db.assessment.create({
+        const assessment = await db.assesments.create({
             data: {
                 userId: user.id,
                 quizScore: score,
