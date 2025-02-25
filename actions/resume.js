@@ -32,7 +32,6 @@ export async function saveResume(content) {
             },
         });
 
-        revalidatePath("/resume");
         return resume;
     } catch (error) {
         console.error("Error saving resume:", error);
@@ -64,7 +63,7 @@ export async function improveWithAI({ current, type }) {
     const user = await db.user.findUnique({
         where: { clerkUserId: userId },
         include: {
-            industryInsight: true,
+            industryInsights: true,
         },
     });
 
