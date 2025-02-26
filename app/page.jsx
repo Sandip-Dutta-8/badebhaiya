@@ -127,7 +127,7 @@ export default function Home() {
             <h2 className="text-3xl font-bold tracking-tighter text-primary-foreground sm:text-4xl md:text-5xl">
               Ready to Accelerate Your Career?
             </h2>
-            <p className="mx-auto max-w-[600px] text-primary-foreground/80 md:text-xl">
+            <p className="mx-auto max-w-[600px] text-primary-foreground/80 md:text-xl px-2">
               Join thousands of professionals who are advancing their careers
               with AI-powered guidance.
             </p>
