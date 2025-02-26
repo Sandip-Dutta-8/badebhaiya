@@ -16,6 +16,7 @@ import MDEditor from "@uiw/react-md-editor"
 import { entriesToMarkdownEDU, entriesToMarkdownPRO, entriesToMarkdownWE } from "@/app/lib/helper"
 import { useUser } from "@clerk/nextjs"
 import html2pdf from "html2pdf.js/dist/html2pdf.min.js";
+import { toast } from "sonner"
 
 const ResumeBuilder = ({ initialContent }) => {
 
@@ -57,6 +58,14 @@ const ResumeBuilder = ({ initialContent }) => {
         if (initialContent) setActiveTab("preview");
     }, [initialContent]);
 
+    // Update preview content when form values change
+    useEffect(() => {
+        if (activeTab === "edit") {
+            const newContent = getCombinedContent();
+            setPreviewContent(newContent ? newContent : initialContent);
+        }
+    }, [formValues, activeTab]);
+
     // Handle save result
     useEffect(() => {
         if (saveResult && !isSaving) {
@@ -66,14 +75,6 @@ const ResumeBuilder = ({ initialContent }) => {
             toast.error(saveError.message || "Failed to save resume");
         }
     }, [saveResult, saveError, isSaving]);
-
-    // Update preview content when form values change
-    useEffect(() => {
-        if (activeTab === "edit") {
-            const newContent = getCombinedContent();
-            setPreviewContent(newContent ? newContent : initialContent);
-        }
-    }, [formValues, activeTab]);
 
     const getContactMarkdown = () => {
         const { contactInfo } = formValues;
@@ -132,9 +133,7 @@ const ResumeBuilder = ({ initialContent }) => {
                 .replace(/\n/g, "\n") // Normalize newlines
                 .replace(/\n\s*\n/g, "\n\n") // Normalize multiple newlines to double newlines
                 .trim();
-
-            console.log(previewContent, formattedContent);
-            await saveResumeFn(previewContent);
+            await saveResumeFn(formattedContent);
         } catch (error) {
             console.error("Save error:", error);
         }
