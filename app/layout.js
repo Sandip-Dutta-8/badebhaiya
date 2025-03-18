@@ -21,6 +21,9 @@ export default function RootLayout({ children }) {
         baseTheme: dark,
       }}>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <meta name="google-site-verification" content="OD9osz00XjBKi9mg4nlkViS7m0rRRLJDQD1lyCWRg18" />
+        </head>
         <body
           className={`${inter.className}`}
         >
@@ -34,7 +37,7 @@ export default function RootLayout({ children }) {
             <main className="min-h-screen">
               {children}
             </main>
-            <Toaster richColors/>
+            <Toaster richColors />
             <Footer />
           </ThemeProvider>
         </body>
